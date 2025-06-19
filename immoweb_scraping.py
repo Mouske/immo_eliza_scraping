@@ -23,6 +23,8 @@ class ImmoElizaScraper:
         all_basic_info = []
         page.goto(self.base_url + f"countries=BE&page={nb_page}&orderBy=newest")
         html = page.content()
+        with open("debug_page.html", "w", encoding="utf-8") as f:
+            f.write(html)
         soup = BeautifulSoup(html, "html.parser")
         search_results = soup.find("div", id="searchResults").find("ul", id="main-content").find("div").find_all('li')
         properties = [result for result in search_results if result.find("a", class_="card__title-link")]
